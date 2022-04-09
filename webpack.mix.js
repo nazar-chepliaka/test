@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 
+mix.copyDirectory('resources/assets', 'public/assets');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -14,4 +16,9 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
-    ]);
+    ])
+    .options({
+        fileLoaderDirs:  {
+            fonts: 'assets/fonts'
+        }
+    });

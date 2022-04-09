@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Main;
+use App\Http\Controllers\Objects\ObjectCreator;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [Main::class, 'index'])->name('welcome');
+
+Route::prefix('objects')->name('objects.')->group(function () {
+    Route::get('/create', [ObjectCreator::class, 'create'])->name('create');
 });
