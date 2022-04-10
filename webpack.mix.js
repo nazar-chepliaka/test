@@ -1,7 +1,5 @@
 const mix = require('laravel-mix');
 
-mix.copyDirectory('resources/assets', 'public/assets');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -13,12 +11,18 @@ mix.copyDirectory('resources/assets', 'public/assets');
  |
  */
 
+mix.copyDirectory('resources/assets', 'public/assets');
+
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ])
     .options({
         fileLoaderDirs:  {
-            fonts: 'assets/fonts'
+            fonts: 'assets/fonts',
+            images: 'assets/images'
         }
+    })
+    .autoload({
+       jquery: ['$', 'window.jQuery']
     });
