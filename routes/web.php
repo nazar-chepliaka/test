@@ -19,5 +19,6 @@ use App\Http\Controllers\Objects\ObjectCreator;
 Route::get('/', [Main::class, 'index'])->name('welcome');
 
 Route::prefix('objects')->name('objects.')->group(function () {
+    Route::get('/', [ObjectCreator::class, 'index'])->name('index');
     Route::get('/create', [ObjectCreator::class, 'create'])->name('create');
 });

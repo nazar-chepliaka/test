@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta')
-    <title>Обʼєкт для відображення | Створити</title>
+    <title>Обʼєкт для відображення</title>
 @endsection
 @section('head-customizations')
     @parent
@@ -125,7 +125,7 @@
                 window.addEventListener('mousemove', window.moveObject);
                 window.addEventListener('mouseup', window.stopMoveObject);
             }
-
+                
             window.addEventListener("load", function(event) {
 
                 window.grid_size = 10;
@@ -133,8 +133,36 @@
                 window.draggableObj = document.getElementById("instruments-container");
                 window.draggingObj = document.getElementById('instruments-container-dragging-controller');
 
+                /* START getting instruments container dimensions */
+
+                var instruments_container_style = window.getComputedStyle(window.draggableObj, null);
+
+                instruments_container_width = parseInt(instruments_container_style['width']);
+                instruments_container_height = parseInt(instruments_container_style['height']);
+
+                /* END getting instruments container dimensions */
+
+                if (instruments_container_width % window.grid_size > 0 || instruments_container_height % window.grid_size > 0) {
+                    alert('Set proper container dimensions');
+                }
+
                 var max_x = window.innerWidth;
                 var max_y = window.innerHeight;
+
+                var x_center = Math.round(max_x / 2);
+                var y_center = Math.round(max_y / 2);
+
+                var x_center_grid_units = Math.round(x_center / window.grid_size);
+                var y_center_grid_units = Math.round(y_center / window.grid_size);
+
+                x_center = x_center_grid_units * window.grid_size;
+                y_center = y_center_grid_units * window.grid_size;
+
+                var instruments_container_left = x_center - (instruments_container_width / 2);
+                var instruments_container_top = y_center - (instruments_container_height / 2);
+
+                window.draggableObj.style['left'] = instruments_container_left + 'px';
+                window.draggableObj.style['top'] = instruments_container_top + 'px';
 
                 window.draggingObj.addEventListener('mousedown', function(e) {
                     e.preventDefault();
@@ -143,8 +171,12 @@
                     window.initDragging();
                 });
 
+                /* START hiding body overlay */
+
                 var body_overlay = document.getElementById("body-overlay");
                 body_overlay.style['display'] = 'none';
+
+                /* END hiding body overlay */
             });
         </script>
     </body>
