@@ -85,6 +85,15 @@
                         result_left_val = curr_left_val_int + result_x_distance;
                     }
 
+                    if(result_left_val < 0) {
+                        result_left_val = 0;
+                    }
+
+                    if (result_left_val > (window.innerWidth - window.instruments_container_width)) {
+                        var tmp_left_val = window.innerWidth - window.instruments_container_width;
+                        result_left_val = Math.round(tmp_left_val / window.grid_size) * window.grid_size;
+                    }
+
                     window.draggableObj.style['left'] = result_left_val + 'px';
                 }
 
@@ -110,6 +119,15 @@
                         window.original_mouse_y = window.original_mouse_y + result_y_distance;
                         
                         result_top_val = curr_top_val_int + result_y_distance;
+                    }
+
+                    if(result_top_val < 0) {
+                        result_top_val = 0;
+                    }
+
+                    if (result_top_val > (window.innerHeight - window.instruments_container_height)) {
+                        var tmp_top_val = window.innerHeight - window.instruments_container_height;
+                        result_top_val = Math.round(tmp_top_val / window.grid_size) * window.grid_size;
                     }
 
                     window.draggableObj.style['top'] = result_top_val + 'px';
@@ -158,11 +176,11 @@
                 x_center = x_center_grid_units * window.grid_size;
                 y_center = y_center_grid_units * window.grid_size;
 
-                var instruments_container_left = x_center - (instruments_container_width / 2);
-                var instruments_container_top = y_center - (instruments_container_height / 2);
+                window.instruments_container_left = x_center - (instruments_container_width / 2);
+                window.instruments_container_top = y_center - (instruments_container_height / 2);
 
-                window.draggableObj.style['left'] = instruments_container_left + 'px';
-                window.draggableObj.style['top'] = instruments_container_top + 'px';
+                window.draggableObj.style['left'] = window.instruments_container_left + 'px';
+                window.draggableObj.style['top'] = window.instruments_container_top + 'px';
 
                 window.draggingObj.addEventListener('mousedown', function(e) {
                     e.preventDefault();

@@ -85,6 +85,15 @@
                         result_left_val = curr_left_val_int + result_x_distance;
                     }
 
+                    if(result_left_val < 0) {
+                        result_left_val = 0;
+                    }
+
+                    if (result_left_val > (window.innerWidth - window.instruments_container_width)) {
+                        var tmp_left_val = window.innerWidth - window.instruments_container_width;
+                        result_left_val = Math.round(tmp_left_val / window.grid_size) * window.grid_size;
+                    }
+
                     window.draggableObj.style['left'] = result_left_val + 'px';
                 }
 
@@ -112,6 +121,15 @@
                         result_top_val = curr_top_val_int + result_y_distance;
                     }
 
+                    if(result_top_val < 0) {
+                        result_top_val = 0;
+                    }
+
+                    if (result_top_val > (window.innerHeight - window.instruments_container_height)) {
+                        var tmp_top_val = window.innerHeight - window.instruments_container_height;
+                        result_top_val = Math.round(tmp_top_val / window.grid_size) * window.grid_size;
+                    }
+                    
                     window.draggableObj.style['top'] = result_top_val + 'px';
                 }
             }
@@ -133,8 +151,10 @@
                 window.draggableObj = document.getElementById("instruments-container");
                 window.draggingObj = document.getElementById('instruments-container-dragging-controller');
 
-                var max_x = window.innerWidth;
-                var max_y = window.innerHeight;
+                var instruments_container_style = window.getComputedStyle(window.draggableObj, null);
+
+                window.instruments_container_width = parseInt(instruments_container_style['width']);
+                window.instruments_container_height = parseInt(instruments_container_style['height']);
 
                 window.draggingObj.addEventListener('mousedown', function(e) {
                     e.preventDefault();
