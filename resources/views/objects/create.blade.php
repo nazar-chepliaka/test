@@ -3,13 +3,14 @@
     <title>Обʼєкт для відображення | Створити</title>
 @endsection
 @section('head-customizations')
+    @parent
     <script src="{{ mix('/js/app.js') }}"></script>
 
     <style>
         body {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23dfe2e3'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23c0c0c0'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
             background-color: #fff;
-            background-size: 20px 20px;
+            background-size: 10px 10px;
         }
 
         #instruments-container {
@@ -20,7 +21,7 @@
             background: #fff;
             position: fixed;
             z-index: 9;
-            box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.2);
         }
 
         #instruments-container-dragging-controller {
@@ -33,6 +34,7 @@
 @endsection
 @section('body')
     <body class="antialiased">
+        @include('components.body-overlay')
         <div id="instruments-container">
             <img src="{{asset('assets/svg/draggable-icon.svg')}}" id="instruments-container-dragging-controller">
             <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
@@ -42,11 +44,6 @@
             </svg>
         </div>
         <script>
-            window.grid_size = 20;
-
-            window.draggableObj = document.getElementById('instruments-container');
-            window.draggingObj = document.getElementById('instruments-container-dragging-controller');
-
             window.removeEventListenerMoveObject = function() {
                 window.removeEventListener('mouseup', window.stopMoveObject);
             }
@@ -128,12 +125,58 @@
                 window.addEventListener('mousemove', window.moveObject);
                 window.addEventListener('mouseup', window.stopMoveObject);
             }
+                
+            window.addEventListener("load", function(event) {
 
-            window.draggingObj.addEventListener('mousedown', function(e) {
-                e.preventDefault();
-                window.original_mouse_x = e.pageX;
-                window.original_mouse_y = e.pageY;
-                window.initDragging();
+                window.grid_size = 10;
+
+                window.draggableObj = document.getElementById("instruments-container");
+                window.draggingObj = document.getElementById('instruments-container-dragging-controller');
+
+                /* START getting instruments container dimensions */
+
+                var instruments_container_style = window.getComputedStyle(window.draggableObj, null);
+
+                instruments_container_width = parseInt(instruments_container_style['width']);
+                instruments_container_height = parseInt(instruments_container_style['height']);
+
+                /* END getting instruments container dimensions */
+
+                if (instruments_container_width % window.grid_size > 0 || instruments_container_height % window.grid_size > 0) {
+                    alert('Set proper container dimensions');
+                }
+
+                var max_x = window.innerWidth;
+                var max_y = window.innerHeight;
+
+                var x_center = Math.round(max_x / 2);
+                var y_center = Math.round(max_y / 2);
+
+                var x_center_grid_units = Math.round(x_center / window.grid_size);
+                var y_center_grid_units = Math.round(y_center / window.grid_size);
+
+                x_center = x_center_grid_units * window.grid_size;
+                y_center = y_center_grid_units * window.grid_size;
+
+                var instruments_container_left = x_center - (instruments_container_width / 2);
+                var instruments_container_top = y_center - (instruments_container_height / 2);
+
+                window.draggableObj.style['left'] = instruments_container_left + 'px';
+                window.draggableObj.style['top'] = instruments_container_top + 'px';
+
+                window.draggingObj.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    window.original_mouse_x = e.pageX;
+                    window.original_mouse_y = e.pageY;
+                    window.initDragging();
+                });
+
+                /* START hiding body overlay */
+
+                var body_overlay = document.getElementById("body-overlay");
+                body_overlay.style['display'] = 'none';
+
+                /* END hiding body overlay */
             });
         </script>
     </body>
