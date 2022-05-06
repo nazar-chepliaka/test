@@ -69,3 +69,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 + https://github.com/webgme/webgme
 + https://ela.kpi.ua/bitstream/123456789/23754/5/Dyfuchyn_magistr.pdf
++ https://uk.wikipedia.org/wiki/Програми_для_роботи_з_бібліографічною_інформацією
