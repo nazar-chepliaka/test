@@ -7,10 +7,31 @@
     <script src="{{ mix('/js/app.js') }}"></script>
 
     <style>
+        html {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+        } 
+
         body {
+            margin: 0px;
+            padding: 0px;
+            min-width: 100%;
+            min-height: 100%;
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23c0c0c0'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
             background-color: #fff;
             background-size: 10px 10px;
+        }
+
+        .div-over-body {
+            background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23d0d1d2'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+            min-width: 100%;
+            min-height: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            background-size: 30px 30px;
         }
 
         #instruments-container {
@@ -34,6 +55,7 @@
 @endsection
 @section('body')
     <body class="antialiased">
+        <div class="div-over-body"></div>
         @include('components.body-overlay')
         <div id="instruments-container">
             <img src="{{asset('assets/svg/draggable-icon.svg')}}" id="instruments-container-dragging-controller">
