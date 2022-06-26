@@ -44,11 +44,11 @@
             </svg>
         </div>
         <script>
-            window.removeEventListenerMoveObject = function() {
+            /*window.removeEventListenerMoveObject = function() {
                 window.removeEventListener('mouseup', window.stopMoveObject);
-            }
+            }*/
 
-            window.moveObject = function(e) {
+            /*window.moveObject = function(e) {
                 var grid_size = window.grid_size;
 
                 var x_diff = window.original_mouse_x - e.pageX;
@@ -132,21 +132,21 @@
                     
                     window.draggableObj.style['top'] = result_top_val + 'px';
                 }
-            }
+            }*/
 
-            window.stopMoveObject = function() {
+            /*window.stopMoveObject = function() {
                 window.removeEventListener('mousemove', window.moveObject);
                 window.removeEventListenerMoveObject();
-            }
+            }*/
 
-            window.initDragging = function() {
+            /*window.initDragging = function() {
                 window.addEventListener('mousemove', window.moveObject);
                 window.addEventListener('mouseup', window.stopMoveObject);
-            }
+            }*/
 
             window.addEventListener("load", function(event) {
 
-                window.grid_size = 10;
+                /*window.grid_size = 10;
 
                 window.draggableObj = document.getElementById("instruments-container");
                 window.draggingObj = document.getElementById('instruments-container-dragging-controller');
@@ -161,10 +161,10 @@
                     window.original_mouse_x = e.pageX;
                     window.original_mouse_y = e.pageY;
                     window.initDragging();
-                });
+                });*/
 
-                var body_overlay = document.getElementById("body-overlay");
-                body_overlay.style['display'] = 'none';
+                //var body_overlay = document.getElementById("body-overlay");
+                //body_overlay.style['display'] = 'none';
             });
         </script>
     </body>
