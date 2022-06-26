@@ -35,6 +35,7 @@
 @section('body')
     <body class="antialiased">
         @include('components.body-overlay')
+        @include('components.dialogs.organizer')
         <div id="instruments-container">
             <img src="{{asset('assets/svg/gear-icon.svg')}}" id="instruments-container-organizer-trigger">
             <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
@@ -163,8 +164,8 @@
                     window.initDragging();
                 });*/
 
-                //var body_overlay = document.getElementById("body-overlay");
-                //body_overlay.style['display'] = 'none';
+                var body_overlay = document.getElementById("body-overlay");
+                body_overlay.style['display'] = 'none';
             });
         </script>
     </body>
